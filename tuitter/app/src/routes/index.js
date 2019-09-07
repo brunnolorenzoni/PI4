@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Auth from '../auth/index'
 
 import { NotFound } from '../components/Error/NotFound'
+import { Login } from '../components/Login/Login'
 
 const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={props => (
@@ -19,6 +20,7 @@ export default function Routes() {
       <BrowserRouter>
         <Switch>
             <PrivateRoute exact path='/' component={() => <h1>Home</h1>}/>
+            <Route exact path='/login' component={Login}/>
             <Route exact path='*' component={NotFound}/>
         </Switch>
       </BrowserRouter>
