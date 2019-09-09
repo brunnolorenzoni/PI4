@@ -8,31 +8,44 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
+import { makeStyles } from '@material-ui/styles';
+
+const useStyles = makeStyles({
+    root: {
+        width: '100%',
+        marginBottom: '20px'
+    },
+});
+
 export const InputPassword = (props) => {
-    const {onChange} = props;
+    const {onChange, error, name_key, label, autocomplete} = props;
+
+    const [showPassword, setShowPassword] = useState(false);
     
     const handleChange = event => {
-        onChange(event.target.value, 'password');
+        onChange(event.target.value, name_key);
     };
     
     const handleClickShowPassword = () => {
-        //setValues({ ...values, showPassword: !values.showPassword });
+        setShowPassword(!showPassword);
     };
 
     const handleMouseDownPassword = event => {
         event.preventDefault();
     };
 
+    const classes = useStyles();
+    
     return (
-        <FormControl>
+        <FormControl className={classes.root}>
             <TextField
-                id="password"
-                autoComplete="current-password"
+                error={error}
+                id={name_key}
+                autoComplete={autocomplete}
                 variant="outlined"
-                // type={values.showPassword ? 'text' : 'password'}
-                label="Senha"
-                aria-describedby="Senha"
-                // //value={values.password}
+                type={showPassword ? 'text' : 'password'}
+                label={label}
+                aria-describedby={label}
                 onChange={handleChange}
                 InputProps={{
                 endAdornment: (
@@ -42,14 +55,16 @@ export const InputPassword = (props) => {
                         aria-label="toggle password visibility"
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
-                        //{values.showPassword ? <VisibilityOff /> : <Visibility />}
                     >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                     </InputAdornment>
                 ),
                 }}
             />
-            <FormHelperText>Digite uma senha</FormHelperText>
+            {error ? 
+            <FormHelperText error={error}>Digite uma senha</FormHelperText>
+            : null}
         </FormControl>
     )
 }
