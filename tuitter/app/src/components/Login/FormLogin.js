@@ -1,11 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
+import { Link } from "react-router-dom";
+
+import cloneDeep from 'lodash/cloneDeep';
 
 import { InputText } from '../Inputs/InputText';
 import { InputPassword } from '../Inputs/InputPassword';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { Link } from "react-router-dom";
+
+import validationForm from '../../utils/validationForm'
 
 import './FormLogin.scss'
 
@@ -23,70 +27,42 @@ export const FormLogin = () => {
     const classes = useStyles();
 
     const [formData, setFormData] = useState({email: null, password: null});
-    const [controlError, setControlError] = useState({email_error: false, password_error: false});
+    const [controlError, setControlError] = useState({email: false, password: false});
 
     const handleChange = (value, key) => {
         setFormData({...formData, [key]: value});
     };
 
-    function checkPassWord()
+    const dataIsValid = () =>
     {
-
-        if(formData.password && formData.password !== '')
-        {
-            setControlError({...controlError, ['password_error']: false});
-            return true;
-        }
-
-        setControlError({...controlError, ['password_error']: true});
-        return false;
-
-    }
-
-    function checkEmail()
-    {
-
-        if(formData.email && formData.email !== ''){
-            
-            let regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            let test = regex.test(formData.email);
-            
-            if(test){
-                setControlError({...controlError, ['email_error']: false});
-            } else {
-                setControlError({...controlError, ['email_error']: true});
-            }
-            
-            return test;
-            
-        }
+        const newControlError = cloneDeep(controlError);
         
-        setControlError({...controlError, ['email_error']: true});
-        return false;        
+        newControlError.email       = !validationForm.checkEmail(formData.email);
+        newControlError.password    = !validationForm.checkPassWord(formData.password);
 
-    }
+        setControlError(newControlError);
+        var errors = Object.values(newControlError);
 
-    function checkInputs()
-    {
+        console.log(errors)
 
-        if(!checkEmail()){
-            return false;
-        } 
-
-        if(!checkPassWord()){
-            return false;
-        } 
+        if(errors.indexOf(true) !== (-1)){
+            return false
+        }
 
         return true;
+
     }
+
 
     const handleSubmit = event =>
     {
         event.preventDefault();
         event.stopPropagation();
 
-        if(checkInputs()){
-            console.log(formData)
+        if(dataIsValid())
+        {
+            console.log(formData);
+
         }
     }
 
@@ -94,17 +70,19 @@ export const FormLogin = () => {
         <form id="login-form" className="form">
             <InputText 
                 onChange={handleChange} 
-                error={controlError.email_error}
+                error={controlError.email}
                 name_key="email"
                 label="E-email"
                 autocomplete="email"
+                helper="Digite seu e-mail"
             />
             <InputPassword 
                 onChange={handleChange} 
-                error={controlError.email_error}
+                error={controlError.password}
                 name_key="password"
                 label="Senha"
                 autocomplete="password"
+                helper="Digite sua senha"
             />
             <Link to="/register">
                 <Button className={classes.floatLeft} color="primary">Criar Conta</Button>

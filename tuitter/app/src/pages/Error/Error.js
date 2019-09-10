@@ -1,5 +1,4 @@
 import React from 'react';
-import Auth from '../../auth/index';
 
 export const Error = (props) => {
     return (

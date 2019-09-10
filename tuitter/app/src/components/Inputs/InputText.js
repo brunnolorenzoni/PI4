@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 });
 
 export const InputText = (props) => {
-    const {onChange, error, name_key, label, autocomplete} = props;
+    const {onChange, error, name_key, label, autocomplete, helper} = props;
 
     function handleChange(event)
     {
@@ -36,7 +36,7 @@ export const InputText = (props) => {
                 onChange={handleChange}
             />
             {error ? 
-            <FormHelperText error={error}>Digite um e-mail</FormHelperText>
+            <FormHelperText error={error}>{helper}</FormHelperText>
             : null}
         </FormControl>
     )

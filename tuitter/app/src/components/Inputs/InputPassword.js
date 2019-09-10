@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 });
 
 export const InputPassword = (props) => {
-    const {onChange, error, name_key, label, autocomplete} = props;
+    const {onChange, error, name_key, label, autocomplete, helper} = props;
 
     const [showPassword, setShowPassword] = useState(false);
     
@@ -63,7 +63,7 @@ export const InputPassword = (props) => {
                 }}
             />
             {error ? 
-            <FormHelperText error={error}>Digite uma senha</FormHelperText>
+            <FormHelperText error={error}>{helper}</FormHelperText>
             : null}
         </FormControl>
     )

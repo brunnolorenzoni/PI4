@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState} from 'react';
+
+import cloneDeep from 'lodash/cloneDeep';
 
 import { InputText } from '../Inputs/InputText';
 import { InputPassword } from '../Inputs/InputPassword';
@@ -7,6 +8,10 @@ import { InputSelect } from '../Inputs/InputSelect';
 
 import Button from '@material-ui/core/Button';
 import FacebookIcon from '@material-ui/icons/Facebook';
+import { makeStyles } from '@material-ui/core/styles';
+
+import validationForm from '../../utils/validationForm'
+import registerUser from '../../services/register'
 
 const useStyles = makeStyles({
     floatRight: {
@@ -28,9 +33,22 @@ export const FormRegister = () => {
 
     const classes = useStyles();
 
-    const [formData, setFormData] = useState({email: null, username: null, password: null, confirm_password: null, gender: ''});
-    const [controlError, setControlError] = useState({email_error: false, password_error: false});
-    
+    const [formData, setFormData] = useState({
+        email: null, 
+        username: null, 
+        password: null, 
+        confirmPassword: null, 
+        gender: '' 
+    });
+
+    const [controlError, setControlError] = useState({ 
+        email: false,
+        username: false,
+        password: false, 
+        confirmPassword: false,
+        gender: false
+    });
+
     const itemsGender = [
         {name: "Masculino", value:"M"}, 
         {name: "Feminino", value:"F"}
@@ -40,59 +58,89 @@ export const FormRegister = () => {
         setFormData({...formData, [key]: value});
     };
 
-    const facebookRegister = event =>{
+    const facebookRegister = (event) =>{
         event.preventDefault();
-        event.stopPropagation();
+        console.log("facebook login")
+    }
 
-        console.log(formData)
+    const dataIsValid = () =>
+    {
+        const newControlError = cloneDeep(controlError);
+        
+        newControlError.username            = !validationForm.checkUsername(formData.username); 
+        newControlError.email               = !validationForm.checkEmail(formData.email);
+        newControlError.password            = !validationForm.checkPassWord(formData.password);
+        newControlError.confirmPassword     = !validationForm.confirmPassword(formData.password, formData.confirmPassword);
+        newControlError.gender              = !validationForm.checkGender(formData.gender);
+
+        setControlError(newControlError);
+        var errors = Object.values(newControlError);
+
+        console.log(errors)
+
+        if(errors.indexOf(true) !== (-1)){
+            return false
+        }
+
+        return true;
+
     }
 
     const handleSubmit = event =>
     {
         event.preventDefault();
-        event.stopPropagation();
 
-        console.log(formData)
+        if(dataIsValid())
+        {
+            registerUser.register(formData);
+
+        }
+
     }
 
     return (
         <form id="login-form" className="form">
             <InputText 
                 onChange={handleChange} 
-                error={controlError.email_error}
+                error={controlError.username}
                 name_key="username"
                 label="Username"
                 autocomplete="username"
+                helper="Digite um username"
             />
             <InputText 
                 onChange={handleChange} 
-                error={controlError.email_error}
+                error={controlError.email}
                 name_key="email"
                 label="E-email"
                 autocomplete="email"
+                helper="Digite um e-mail"
             />
             <InputPassword 
                 onChange={handleChange} 
-                error={controlError.email_error}
+                error={controlError.password}
                 name_key="password"
                 label="Senha"
                 autocomplete="password"
+                helper="Digite uma senha"
             />
             <InputPassword 
                 onChange={handleChange} 
-                error={controlError.email_error}
-                name_key="confirm_password"
+                error={controlError.confirmPassword}
+                name_key="confirmPassword"
                 label="Confirmar Senha"
                 autocomplete="password"
+                helper="Confirme sua senha"
             />
             <InputSelect 
                 onChange={handleChange} 
-                error={controlError.email_error}
+                error={controlError.gender}
                 name_key="gender"
                 label="Gênero"
                 autocomplete="gender"
                 items={itemsGender}
                 value={formData.gender}
+                helper="Selecione um gênero"
             />
 
             <Button className={classes.socialLogin} color="primary" variant="contained" type="submit" onClick={facebookRegister}>
