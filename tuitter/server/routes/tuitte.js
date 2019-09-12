@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const verify = require('../validations/tokenValidation');
-const User = require('../models/User');
-const tuitteController = require('../controllers/tuitteController');
 
-router.get('/', verify, tuitteController.getTuittes);
+const tuitteController = require('../controllers/tuitteController');
+const tokenController = require('../controllers/tokenController');
+
+router.get('/', tokenController.validation, tuitteController.getTuittes);
 
 module.exports = router;

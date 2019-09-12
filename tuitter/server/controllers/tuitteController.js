@@ -1,3 +1,5 @@
+const User = require('../models/User');
+
 exports.getTuittes = async (req, res) => {
 
     //res.json({"posts": [{"message": "Oi"}, {"message": "Oi"}, {"message": "Oi"}]})

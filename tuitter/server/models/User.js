@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseHidden = require('mongoose-hidden')();
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -7,11 +8,12 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
     },
     password: {
         type: String,
         required: true,
+        hide: true
     },
     gender: {
         type: String,
@@ -19,8 +21,11 @@ const userSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        hide: true
     }
 });
+
+userSchema.plugin(mongooseHidden)
 
 module.exports = mongoose.model('User', userSchema)
