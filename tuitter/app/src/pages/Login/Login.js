@@ -1,5 +1,5 @@
 import React from 'react';
-import Auth from '../../auth/index';
+import Auth from '../../services/auth';
 import { Redirect } from "react-router-dom";
 
 

@@ -1,27 +1,36 @@
 const tokenController = require('../controllers/tokenController');
-const {loginValidation} = require('../validations/JoiValidation');
+const {loginValidation} = require('../validations/validations');
+const {isEmail} = require('../validations/validations');
 
 const User = require('../models/User');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 
 exports.login = async (req, res) => {
     const dataBody = req.body;
 
-    const {error} = loginValidation(dataBody);
-    if(error){
+    const isComplete = loginValidation(dataBody);
+    if(isComplete.error){
         return res.status(400).send(error.details[0].message);
     }
 
-    const user = await User.findOne({email: dataBody.email});
+    let user;
+
+    if(isEmail(dataBody.user)){
+        console.log(true)
+        user = await User.findOne({"email": dataBody.user});
+    } else {
+        console.log(false)
+        user = await User.findOne({"username": dataBody.user});
+    }
+
     if(!user) {
-        return res.status(400).send("Email não existe");
+        return res.status(400).json({"message": "Este usuário não existe", "field": "user"});
     }
 
     const validPassword = await bcrypt.compare(dataBody.password, user.password);
     if(!validPassword){
-        return res.status(400).send("Senha invalida");
+        return res.status(400).json({"message": "Senha incorreta", "field": "password"});
     }
 
     const token = tokenController.generateToken(user);

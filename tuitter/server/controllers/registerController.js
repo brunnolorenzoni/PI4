@@ -1,4 +1,4 @@
-const {registerValidation} = require('../validations/JoiValidation');
+const {registerValidation} = require('../validations/validations');
 const tokenController = require('../controllers/tokenController');
 
 const User = require('../models/User');
@@ -36,7 +36,7 @@ exports.registerUser = async (req, res) => {
     try {
         const savedUser = await user.save();
         const token = tokenController.generateToken(savedUser);
-        res.header('token', token).status(200).json({"message": "Registrado com sucesso"});
+        res.status(200).json({"token": token});
     } catch (err){
         res.status(400).json({"message": "Erro ao registrar usaurio"});
     }

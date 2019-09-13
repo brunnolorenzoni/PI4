@@ -1,5 +1,6 @@
 const Joi = require('@hapi/joi');
-
+var validator = require("email-validator");
+ 
 const registerValidation = (data) => 
 {
 
@@ -19,7 +20,7 @@ const loginValidation = (data) =>
 {
 
     const schema = {
-        email: Joi.string().email().required(),
+        user: Joi.string().required(),
         password: Joi.string().required(),
     };
 
@@ -27,5 +28,13 @@ const loginValidation = (data) =>
 
 }
 
+const isEmail = (email) => 
+{
+
+    return validator.validate(email);
+
+}
+
+module.exports.isEmail = isEmail;
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;

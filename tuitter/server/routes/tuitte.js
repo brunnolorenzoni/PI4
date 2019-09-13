@@ -4,5 +4,6 @@ const tuitteController = require('../controllers/tuitteController');
 const tokenController = require('../controllers/tokenController');
 
 router.get('/', tokenController.validation, tuitteController.getTuittes);
+router.post('/', tokenController.validation, tuitteController.getTuittes);
 
 module.exports = router;

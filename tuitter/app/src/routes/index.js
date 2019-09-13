@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import Auth from '../auth/index'
+import Auth from '../services/auth'
 
 import { Error } from '../pages/Error/Error'
 import { Login } from '../pages/Login/Login'

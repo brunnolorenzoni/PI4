@@ -10,8 +10,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 import validationForm from '../../utils/validationForm'
+import loginUser from '../../services/login'
 
 import './FormLogin.scss'
+import { async } from 'q';
 
 const useStyles = makeStyles({
     floatRight: {
@@ -26,8 +28,8 @@ export const FormLogin = () => {
 
     const classes = useStyles();
 
-    const [formData, setFormData] = useState({email: null, password: null});
-    const [controlError, setControlError] = useState({email: false, password: false});
+    const [formData, setFormData] = useState({user: null, password: null});
+    const [controlError, setControlError] = useState({user: false, password: false});
 
     const handleChange = (value, key) => {
         setFormData({...formData, [key]: value});
@@ -37,13 +39,11 @@ export const FormLogin = () => {
     {
         const newControlError = cloneDeep(controlError);
         
-        newControlError.email       = !validationForm.checkEmail(formData.email);
+        newControlError.user        = !validationForm.checkUsername(formData.user);
         newControlError.password    = !validationForm.checkPassWord(formData.password);
 
         setControlError(newControlError);
         var errors = Object.values(newControlError);
-
-        console.log(errors)
 
         if(errors.indexOf(true) !== (-1)){
             return false
@@ -54,14 +54,17 @@ export const FormLogin = () => {
     }
 
 
-    const handleSubmit = event =>
+    const handleSubmit = async (event) =>
     {
         event.preventDefault();
-        event.stopPropagation();
 
         if(dataIsValid())
         {
-            console.log(formData);
+            var response = await loginUser.login(formData);
+
+            if(response){
+                console.log(response)
+            }
 
         }
     }
@@ -70,11 +73,11 @@ export const FormLogin = () => {
         <form id="login-form" className="form">
             <InputText 
                 onChange={handleChange} 
-                error={controlError.email}
-                name_key="email"
-                label="E-email"
-                autocomplete="email"
-                helper="Digite seu e-mail"
+                error={controlError.user}
+                name_key="user"
+                label="E-email ou username"
+                autocomplete="emailusername"
+                helper="Digite seu e-mail ou username"
             />
             <InputPassword 
                 onChange={handleChange} 

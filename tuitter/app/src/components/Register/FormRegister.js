@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import validationForm from '../../utils/validationForm'
 import registerUser from '../../services/register'
+import { async } from 'q';
 
 const useStyles = makeStyles({
     floatRight: {
@@ -76,8 +77,6 @@ export const FormRegister = () => {
         setControlError(newControlError);
         var errors = Object.values(newControlError);
 
-        console.log(errors)
-
         if(errors.indexOf(true) !== (-1)){
             return false
         }
@@ -86,13 +85,15 @@ export const FormRegister = () => {
 
     }
 
-    const handleSubmit = event =>
+    const handleSubmit = async (event) =>
     {
         event.preventDefault();
 
         if(dataIsValid())
         {
-            registerUser.register(formData);
+            var response = await registerUser.register(formData);
+            
+            console.log(response.response)
 
         }
 

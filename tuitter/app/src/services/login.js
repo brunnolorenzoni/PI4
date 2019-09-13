@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const registerUser = {
+const loginUser = {
 
-    async register(data)
+    async login(data)
     {
 
-        var request = await axios.post('http://localhost:3001/api/user/register', data)
+        var request = await axios.post('http://localhost:3001/api/user/login', data)
         .then(function (response) {
             sessionStorage.setItem('token', response.data.token);
             window.location = '/'
@@ -17,13 +17,11 @@ const registerUser = {
 
         return (request);
 
-
-
     }
 
 }
 
-export default registerUser;
+export default loginUser;
 
 
 
