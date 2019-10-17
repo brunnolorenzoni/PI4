@@ -1,0 +1,12 @@
+<h2>{{titulo}}</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>NOME</th>
+    </tr>
+    <tr *ngFor='let prod of produtos'>
+        <td>{{prod.id}}</td>
+        <td>{{prod.nome}}</td>
+    </tr>
+</table>

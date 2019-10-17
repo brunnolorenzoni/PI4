@@ -17,10 +17,8 @@ exports.login = async (req, res) => {
     let user;
 
     if(isEmail(dataBody.user)){
-        console.log(true)
         user = await User.findOne({"email": dataBody.user});
     } else {
-        console.log(false)
         user = await User.findOne({"username": dataBody.user});
     }
 
@@ -34,6 +32,6 @@ exports.login = async (req, res) => {
     }
 
     const token = tokenController.generateToken(user);
-    res.header('token', token).status(200).json({"message": "Token gerado"});
+    res.status(200).json({"token": token});
 
 };

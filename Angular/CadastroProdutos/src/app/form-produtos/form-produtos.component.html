@@ -1,0 +1,13 @@
+<h2>{{titulo}}</h2>
+
+<label>Id:</label><br/>
+<input type="text" [(ngModel)]="produto.id"><br/>
+<label>Nome:</label><br/>
+<input type="text" [(ngModel)]="produto.nome"><br/>
+<button (click)="salvarProduto()">Salvar</button>
+
+
+<!-- <input [(ngModel)]="produto">
+<br />
+<input [value]="produto" (keyup)="capturaInput($event)">
+{{produto}} -->
