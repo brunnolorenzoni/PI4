@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Produto } from '../produto';
+import { ProdutoService } from '../produto.service';
 
 @Component({
   selector: 'app-tabela-produtos',
@@ -6,13 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./tabela-produtos.component.css']
 })
 export class TabelaProdutosComponent implements OnInit {
-  @Input() produtos: any[];
-
   titulo = "Tabela de Produtos";
 
-  constructor() { }
+  produtos: Produto[] = [];
+
+
+  constructor(private produtoService: ProdutoService) { }
 
   ngOnInit() {
+    this.produtos = this.produtoService.listar();
   }
 
 }

@@ -5,6 +5,7 @@ import { FormsModule }   from '@angular/forms';
 import { AppComponent } from './app.component';
 import { TabelaProdutosComponent } from './tabela-produtos/tabela-produtos.component';
 import { FormProdutosComponent } from './form-produtos/form-produtos.component';
+import { ProdutoService } from './produto.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { FormProdutosComponent } from './form-produtos/form-produtos.component';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [ProdutoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
