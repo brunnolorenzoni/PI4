@@ -8,7 +8,7 @@ import { FormRegister } from '../../components/Register/FormRegister'
 import './Register.scss';
 
 
-export const Register = (props) => {
+const Register = (props) => {
 
     return (
         !Auth.isAuthenticated() ? (
@@ -25,3 +25,5 @@ export const Register = (props) => {
         )
     )
 }
+
+export default Register;

@@ -8,7 +8,7 @@ import Card from '@material-ui/core/Card';
 import { FormLogin } from "../../components/Login/FormLogin";
 import './Login.scss';
 
-export const Login = (props) => {
+const Login = (props) => {
 
     return (
         !Auth.isAuthenticated() ? (
@@ -25,3 +25,5 @@ export const Login = (props) => {
         )
     )
 }
+
+export default Login;

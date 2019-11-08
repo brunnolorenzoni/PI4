@@ -5,12 +5,25 @@ class Auth {
 
     isAuthenticated() {
 
-        if(sessionStorage.getItem('token')){
-            this.authenticated = true;
-        }
+      if(sessionStorage.getItem('token')){
+          this.authenticated = true;
+      }
         
       return this.authenticated;
     }
+
+    logout()
+    {
+
+      if(sessionStorage.getItem('token')){
+        sessionStorage.removeItem('token')
+        this.authenticated = false;
+      }
+      
+      return !this.authenticated;
+
+    }
+
   }
   
   export default new Auth();

@@ -1,9 +1,11 @@
 import React from 'react';
 
-export const Error = (props) => {
+const Error = (props) => {
     return (
       <>
          <h1>Erro</h1>
       </>
     );
-}
+};
+
+export default Error;

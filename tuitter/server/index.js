@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-var cors = require('cors')
+var cors = require('cors');
+
+
 
 //Improt Routes
 const registerRoute = require('./routes/register');
@@ -10,6 +12,11 @@ const loginRoute = require('./routes/login');
 const tuitteRoute = require('./routes/tuitte');
 
 dotenv.config();
+
+/*
+DB_CONNECT = mongodb+srv://brnmeister:brnmeister@cluster0-euzti.mongodb.net/tuitter?retryWrites=true&w=majority
+TOKEN_SECRET=brnmeister
+*/
 
 mongoose.connect(
     process.env.DB_CONNECT, 
