@@ -1,0 +1,22 @@
+.formWrapper{
+    width: 100%;
+    display: block;
+    margin: auto;
+    max-width: 800px;
+    padding: 16px
+}
+
+
+.formWrapper .fieldContainer {
+    width: 100%;
+    display: block;
+    margin: auto;
+}
+
+.formWrapper .fieldContainer .input-tuitte{
+    width: 100%;
+}
+
+.formWrapper .button-submit{
+    position: relative;
+}

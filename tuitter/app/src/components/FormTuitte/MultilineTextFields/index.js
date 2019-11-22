@@ -1,48 +1,47 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import Button from '@material-ui/core/Button';
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
-  },
-}));
 
-export default function MultilineTextFields() {
-  const classes = useStyles();
-  const [value, setValue] = React.useState('Controlled');
+const MultilineTextFields = (props) => {
 
-  const handleChange = event => {
-    setValue(event.target.value);
+  const { submitForm } = props;
+
+  const [tuitteText, setTuitteText] = useState('');
+
+  const handleChange = (event) => {
+    setTuitteText(event.target.value);
   };
 
+  const verificarInput = (event) => {
+    if(tuitteText && tuitteText.length > 0){
+      submitForm(tuitteText);
+    }
+  };
+
+
   return (
-    <form className={classes.container} noValidate autoComplete="off">
-      <div>
+    <>
+      <div className="fieldContainer">
         <TextField
           id="outlined-multiline-static"
-          label="Multiline"
           multiline
           rows="4"
-          defaultValue="Default Value"
-          className={classes.textField}
+          className="input-tuitte"
           margin="normal"
           variant="outlined"
+          placeholder="No que você está pensando?"
+          onChange={handleChange}
         />
       </div>
 
-      <Button variant="contained" color="primary" className={classes.button}>
-        Primary
-      </Button>
 
-    </form>
+      <Button variant="contained" color="primary" onClick={verificarInput} className="button-submit">
+        Tuittar
+      </Button>
+    </>
   );
 }
+
+export default MultilineTextFields;
