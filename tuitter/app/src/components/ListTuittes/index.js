@@ -8,6 +8,8 @@ import './index.scss';
 
 const ListTuittes = (props) => {
 
+    const { hasUpdate } = props;
+
     const [ data, setData ] = useState({
         data: [],
         user: {}
@@ -20,6 +22,12 @@ const ListTuittes = (props) => {
     useEffect(() => {
         requestTuittes()
     },[]);
+    
+    useEffect(() => {
+        if(hasUpdate){
+            requestTuittes()
+        }
+    },[hasUpdate]);
 
     useEffect(() => {
         console.log(data)

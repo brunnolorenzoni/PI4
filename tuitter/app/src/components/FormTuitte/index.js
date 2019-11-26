@@ -6,14 +6,18 @@ import { setTuitte } from '../../services/api'
 
 import './index.scss'
 
-const FormTuitte = () => {
+const FormTuitte = (props) => {
+
+  const { emitUpdate } = props; 
 
   const submitForm = async (data) => {
     const saveRequest = await setTuitte(data);
 
     if(saveRequest.status === 200){
-      window.location = '/'
+      emitUpdate();
     }
+
+    
 
   }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './index.scss';
 
@@ -9,11 +9,17 @@ import ListTuittes from '../../components/ListTuittes';
 
 const Home = (props) => {
 
+    const [ hasUpdate, setHasUpdate ] = useState(false) 
+
+    const emitUpdate = () => {
+        setHasUpdate(true)
+    }
+
     return (
         <>
             <Header/>
-            <FormTuitte />
-            <ListTuittes />
+            <FormTuitte emitUpdate={emitUpdate} />
+            <ListTuittes hasUpdate={hasUpdate} />
         </>
     )
 }

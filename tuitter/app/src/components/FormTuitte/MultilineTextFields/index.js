@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import Button from '@material-ui/core/Button';
@@ -17,8 +17,13 @@ const MultilineTextFields = (props) => {
   const verificarInput = (event) => {
     if(tuitteText && tuitteText.length > 0){
       submitForm(tuitteText);
+      setTuitteText('');
     }
   };
+
+  useEffect(() => {
+    console.log(tuitteText)
+  },[tuitteText]);
 
 
   return (
@@ -33,6 +38,7 @@ const MultilineTextFields = (props) => {
           variant="outlined"
           placeholder="No que você está pensando?"
           onChange={handleChange}
+          value={tuitteText}
         />
       </div>
 
