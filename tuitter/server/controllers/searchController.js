@@ -1,6 +1,24 @@
 const User = require('../models/User');
 
+const isFollowing = (me, user) => {
+    
+
+    if(!me.following.length){
+        return false;
+    }
+    
+    if(me.following.indexOf(user._id) === -1){
+        return false;
+    }
+
+    return true;
+}
+
 exports.search = async (req, res) => {
+
+    const me = await User.findById(req.user._id);
+    console.log(me._id)
+
     const term = req.body.search;
 
     try {
@@ -18,7 +36,23 @@ exports.search = async (req, res) => {
         });
 
         if(users.length) {
-            return res.status(200).json(users);
+
+            const usersFind = [];
+
+            for(let i in users){
+
+                if(users[i]._id.toString() != me._id.toString()){
+                    usersFind.push({
+                        user: users[i],
+                        isFollowing: isFollowing(me, users[i])
+                    })
+                }
+                
+            }
+
+
+
+            return res.status(200).json(usersFind);
         } else {
             return res.status(200).json("Nenhum usuario encontrado");
         }
