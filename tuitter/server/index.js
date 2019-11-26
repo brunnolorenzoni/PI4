@@ -10,13 +10,11 @@ var cors = require('cors');
 const registerRoute = require('./routes/register');
 const loginRoute = require('./routes/login');
 const tuitteRoute = require('./routes/tuitte');
+const followRoute = require('./routes/follow');
+const unfollowRoute = require('./routes/unfollow.js');
+const searchRoute = require('./routes/searchUser.js');
 
 dotenv.config();
-
-/*
-DB_CONNECT = mongodb+srv://brnmeister:brnmeister@cluster0-euzti.mongodb.net/tuitter?retryWrites=true&w=majority
-TOKEN_SECRET=brnmeister
-*/
 
 mongoose.connect(
     process.env.DB_CONNECT, 
@@ -36,6 +34,9 @@ app.use(cors())
 app.use('/api/user/register', registerRoute)
 app.use('/api/user/login', loginRoute)
 app.use('/api/tuitte', tuitteRoute)
+app.use('/api/search', searchRoute)
+app.use('/api/follow', followRoute)
+app.use('/api/unfollow', unfollowRoute)
 
 app.get('/', (req, res) => {
     res.send("Hello");

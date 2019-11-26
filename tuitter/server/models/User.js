@@ -23,6 +23,12 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
         hide: true
+    },
+    following: {
+        type: Array,
+    },
+    followers: {
+        type: Array,
     }
 });
 
