@@ -14,10 +14,9 @@ const isFollowing = (me, user) => {
     return true;
 }
 
-exports.search = async (req, res) => {
+exports.searchUser = async (req, res) => {
 
     const me = await User.findById(req.user._id);
-    console.log(me._id)
 
     const term = req.body.search;
 
