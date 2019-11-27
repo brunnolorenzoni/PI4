@@ -38,7 +38,7 @@ const ListTuittes = (props) => {
             {
                 data.data.length ? 
                     data.data.map(tuitte => (
-                        <Tuitte key={tuitte._id} username={data.user.username} text={tuitte.text} date={tuitte.date}/>
+                        <Tuitte key={tuitte._id} username={tuitte.user.username} text={tuitte.text} date={tuitte.date}/>
                     ))
                 : null
             }

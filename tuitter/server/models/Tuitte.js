@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const User = require('./User');
+
 const tuitteSchema = new mongoose.Schema({
     text: {
         type: String,
@@ -11,7 +13,7 @@ const tuitteSchema = new mongoose.Schema({
         required: true
     },
     user: {
-        type: String,
+        type: Object,
         required: true
     }
 });
