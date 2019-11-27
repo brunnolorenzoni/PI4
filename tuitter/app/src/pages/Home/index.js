@@ -18,8 +18,10 @@ const Home = (props) => {
     return (
         <>
             <Header/>
-            <FormTuitte emitUpdate={emitUpdate} />
-            <ListTuittes hasUpdate={hasUpdate} />
+            <div className="bodyWrapper">
+                <FormTuitte emitUpdate={emitUpdate} />
+                <ListTuittes hasUpdate={hasUpdate} />
+            </div>
         </>
     )
 }

@@ -42,6 +42,7 @@ exports.searchUser = async (req, res) => {
 
                 if(users[i]._id.toString() != me._id.toString()){
                     usersFind.push({
+                        id: users[i]._id,
                         user: users[i],
                         isFollowing: isFollowing(me, users[i])
                     })
@@ -53,7 +54,7 @@ exports.searchUser = async (req, res) => {
 
             return res.status(200).json(usersFind);
         } else {
-            return res.status(200).json("Nenhum usuario encontrado");
+            return res.status(204).json("Nenhum usuario encontrado");
         }
 
 

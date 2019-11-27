@@ -8,6 +8,7 @@ import ResultSearch from './ResultSearch';
 
 import { searchUser } from '../../../services/api'
 
+import './index.scss'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,7 +30,6 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
       width: 'auto',
     },
   },
@@ -50,9 +50,9 @@ const useStyles = makeStyles(theme => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: 120,
+      width: 300,
       '&:focus': {
-        width: 200,
+        width: 350,
       },
     },
   },
@@ -86,12 +86,12 @@ const SearchUser = () => {
 
     const handleKeyDown = (e) => {
       setTypingTimer(clearTimeout(typingTimer));
-      setUsersReceived([])
-      setStatusCode(false)
+      setUsersReceived([]);
     }
 
     const handleKeyUp = (e) => {
       const value = e.target.value;
+      console.log(value)
       clearTimeout(typingTimer);
       setTypingTimer(setTimeout(() => {
         setTermSearch(value);
@@ -105,6 +105,8 @@ const SearchUser = () => {
     }
 
     useEffect(() => {
+      console.log(termSearch)
+      console.log(hasFocus)
       if(termSearch !== '' && hasFocus){
         requestUsers(termSearch);
       }
@@ -128,7 +130,7 @@ const SearchUser = () => {
                 inputProps={{ 'aria-label': 'search' }}
                 onFocus={handleFocus}
                 onChange={handleChange}
-                onBlur={handleBlur}
+                //onBlur={handleBlur}
             />
         </div>
         

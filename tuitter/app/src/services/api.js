@@ -42,3 +42,27 @@ export const searchUser = async (data) => {
     })
 
 }
+
+export const unfollow = async (id) => {
+
+    return await axios.post('http://localhost:3001/api/unfollow/' + id, {}, config)
+    .then(function (response) {
+        return response;
+    })
+    .catch(function (error) {
+        return error;
+    })
+
+}
+
+export const follow = async (id) => {
+
+    return await axios.post('http://localhost:3001/api/follow/' + id, {}, config)
+    .then(function (response) {
+        return response;
+    })
+    .catch(function (error) {
+        return error;
+    })
+
+}
