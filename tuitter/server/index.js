@@ -12,7 +12,7 @@ const loginRoute = require('./routes/login');
 const tuitteRoute = require('./routes/tuitte');
 const followRoute = require('./routes/follow');
 const unfollowRoute = require('./routes/unfollow.js');
-const searchRoute = require('./routes/searchUser.js');
+const searchRoute = require('./routes/search.js');
 
 dotenv.config();
 
