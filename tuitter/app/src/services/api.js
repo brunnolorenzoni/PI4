@@ -30,3 +30,15 @@ export const getTuitte = async (data) => {
     })
 
 }
+
+export const searchUser = async (data) => {
+
+    return await axios.post('http://localhost:3001/api/search/user', {search: data}, config)
+    .then(function (response) {
+        return response;
+    })
+    .catch(function (error) {
+        return error;
+    })
+
+}

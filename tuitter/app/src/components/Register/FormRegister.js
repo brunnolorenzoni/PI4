@@ -12,7 +12,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import validationForm from '../../utils/validationForm'
 import registerUser from '../../services/register'
-import { async } from 'q';
 
 const useStyles = makeStyles({
     floatRight: {

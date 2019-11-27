@@ -12,7 +12,7 @@ const AvatarUser = (props) => {
         <>
             {image ? 
                 <div className="avatarWrapper">
-                    <img className="imageAvatar" src="image" /> 
+                    <img className="imageAvatar" alt="Profile Avatar" src="image" /> 
                 </div>
             : 
             <div className="avatarWrapper">

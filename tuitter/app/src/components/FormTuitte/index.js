@@ -15,9 +15,7 @@ const FormTuitte = (props) => {
 
     if(saveRequest.status === 200){
       emitUpdate();
-    }
-
-    
+    }    
 
   }
 

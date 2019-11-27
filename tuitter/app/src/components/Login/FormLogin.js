@@ -13,7 +13,6 @@ import validationForm from '../../utils/validationForm'
 import loginUser from '../../services/login'
 
 import './FormLogin.scss'
-import { async } from 'q';
 
 const useStyles = makeStyles({
     floatRight: {

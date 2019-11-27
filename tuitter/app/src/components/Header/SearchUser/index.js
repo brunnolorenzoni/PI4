@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+
+import ResultSearch from './ResultSearch';
+
+import { searchUser } from '../../../services/api'
 
 
 const useStyles = makeStyles(theme => ({
@@ -58,21 +62,79 @@ const SearchUser = () => {
 
     const classes = useStyles();
 
+    const [typingTimer, setTypingTimer ] = useState(null);
+    const [termSearch, setTermSearch ] = useState('');
+    const [usersReceived, setUsersReceived ] = useState([]);
+    const [hasFocus, setHasFocus ] = useState(false)
+    const [searchValue, setSearchValue ] = useState('')
+    const [statusCode, setStatusCode ] = useState(false)
+
+    const timer = 1000;
+
+    const handleBlur = () => {
+      setHasFocus(false)
+    }
+
+    const handleFocus = () => {
+      setHasFocus(true)
+    }
+
+    const handleChange = (e) => {
+      const value = e.target.value;
+      setSearchValue(value);
+    }
+
+    const handleKeyDown = (e) => {
+      setTypingTimer(clearTimeout(typingTimer));
+      setUsersReceived([])
+      setStatusCode(false)
+    }
+
+    const handleKeyUp = (e) => {
+      const value = e.target.value;
+      clearTimeout(typingTimer);
+      setTypingTimer(setTimeout(() => {
+        setTermSearch(value);
+      }, timer));
+    }
+
+    const requestUsers = async (termSearch) => {
+      const users = await searchUser(termSearch);
+      setStatusCode(users.status)
+      setUsersReceived(users.data)
+    }
+
+    useEffect(() => {
+      if(termSearch !== '' && hasFocus){
+        requestUsers(termSearch);
+      }
+    },[termSearch, hasFocus]);
+
     return (
+      <div className="wrapperSearch">
         <div className={classes.search}>
 
             <div className={classes.searchIcon}>
                 <SearchIcon />
             </div>
             <InputBase
-                placeholder="Search…"
+                placeholder="Buscar usuario"
                 classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
                 }}
+                onKeyDown={handleKeyDown}
+                onKeyUp={handleKeyUp}
                 inputProps={{ 'aria-label': 'search' }}
+                onFocus={handleFocus}
+                onChange={handleChange}
+                onBlur={handleBlur}
             />
         </div>
+        
+        <ResultSearch hasFocus={hasFocus} searchValue={searchValue} users={usersReceived} statusCode={statusCode}/>
+
+      </div>
     )
 }
 

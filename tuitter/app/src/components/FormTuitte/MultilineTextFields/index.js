@@ -22,7 +22,6 @@ const MultilineTextFields = (props) => {
   };
 
   useEffect(() => {
-    console.log(tuitteText)
   },[tuitteText]);
 
 
