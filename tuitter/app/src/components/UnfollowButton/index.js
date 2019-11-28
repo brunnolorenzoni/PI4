@@ -3,23 +3,23 @@ import React from 'react';
 
 import { unfollow } from '../../services/api'
 
-
-const unFollowRequest = async(e) => {
-    const idToUnfollow = e.target.getAttribute('idtounfollow');
-    const request = await unfollow(idToUnfollow);
-
-    console.log(request)
-
-}
+import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 
 const UnfollowButton = (props) => {
 
-    const { data } = props;
-    console.log(data)
+    const { data, emitUpdate } = props;
+
+    const unFollowRequest = async(e) => {
+        const idToUnfollow = e.currentTarget.getAttribute('idtounfollow');
+        const request = await unfollow(idToUnfollow);
+    
+        emitUpdate();
+    
+    }
 
     return (
         <button type="Button" idtounfollow={data.id} onClick={unFollowRequest}>
-            UN
+            <PersonAddDisabledIcon />
         </button>
     )
 }

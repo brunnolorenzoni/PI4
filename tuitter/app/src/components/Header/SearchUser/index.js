@@ -72,7 +72,14 @@ const SearchUser = () => {
     const timer = 1000;
 
     const handleBlur = () => {
-      setHasFocus(false)
+      window.addEventListener('click', function(e){
+        if(e.target.className === 'bodyWrapper'){
+          setHasFocus(false)
+          setSearchValue('');
+          setUsersReceived([]);
+
+        }
+      })
     }
 
     const handleFocus = () => {
@@ -104,9 +111,11 @@ const SearchUser = () => {
       setUsersReceived(users.data)
     }
 
+    const handleUpdate = () => {
+      requestUsers(termSearch);
+    }
+
     useEffect(() => {
-      console.log(termSearch)
-      console.log(hasFocus)
       if(termSearch !== '' && hasFocus){
         requestUsers(termSearch);
       }
@@ -125,16 +134,17 @@ const SearchUser = () => {
                 root: classes.inputRoot,
                 input: classes.inputInput,
                 }}
+                value={searchValue}
                 onKeyDown={handleKeyDown}
                 onKeyUp={handleKeyUp}
                 inputProps={{ 'aria-label': 'search' }}
                 onFocus={handleFocus}
                 onChange={handleChange}
-                //onBlur={handleBlur}
+                onBlur={handleBlur}
             />
         </div>
         
-        <ResultSearch hasFocus={hasFocus} searchValue={searchValue} users={usersReceived} statusCode={statusCode}/>
+        <ResultSearch hasFocus={hasFocus} emitUpdate={handleUpdate} searchValue={searchValue} users={usersReceived} statusCode={statusCode}/>
 
       </div>
     )

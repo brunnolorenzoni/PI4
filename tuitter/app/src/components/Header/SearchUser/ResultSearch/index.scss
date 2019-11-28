@@ -10,6 +10,7 @@
     display: block;
     opacity: 1;
     padding: 8px;
+    overflow-y: auto;
 
     .message{
         font-size: 14px;
@@ -67,6 +68,23 @@
 
             .followUnfollowWrapper{
                 width: calc(30%);
+                display: flex;
+                justify-content: flex-end;
+
+                button {
+                    background: #fff;
+                    border: 0;
+                    border-radius: 5px;
+                    padding: 3px;
+                    display: block;
+                    cursor: pointer;
+                    
+                    svg{
+                        cursor: pointer;
+                        display: block;
+                        height: auto;
+                    }
+                }
                 
             }
 

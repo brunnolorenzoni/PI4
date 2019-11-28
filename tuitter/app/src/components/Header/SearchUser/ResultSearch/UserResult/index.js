@@ -7,7 +7,11 @@ import FollowButton from '../../../../FollowButton';
 
 const UserResult = (props) => {
 
-    const { data } = props;
+    const { data, actionFollowUnfollow } = props;
+
+    const handleUpdate = () => {
+        actionFollowUnfollow();
+    }
 
     return (
         <li className="item">
@@ -19,9 +23,9 @@ const UserResult = (props) => {
             <div className="followUnfollowWrapper">
                 {
                     data.isFollowing ? 
-                        <UnfollowButton data={data} />
+                        <UnfollowButton emitUpdate={handleUpdate} data={data} />
                     :
-                        <FollowButton data={data} />
+                        <FollowButton emitUpdate={handleUpdate} data={data} />
                 }
             </div>
         

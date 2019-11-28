@@ -6,7 +6,11 @@ import UserResult from './UserResult'
 
 const ResultSearch = (props) => {
     
-    const { users, searchValue, hasFocus, statusCode } = props;
+    const { users, searchValue, hasFocus, statusCode, emitUpdate } = props;
+
+    const handleFollowUnfollow = () => {
+        emitUpdate();
+    }
 
     useEffect(() => {
     },[users]);
@@ -19,7 +23,7 @@ const ResultSearch = (props) => {
                     <ul className="listResult">
                         {
                             users.map(user => (
-                                <UserResult key={user.id} data={user}/>
+                                <UserResult actionFollowUnfollow={handleFollowUnfollow} key={user.id} data={user}/>
                             ))
                         }
                     </ul>

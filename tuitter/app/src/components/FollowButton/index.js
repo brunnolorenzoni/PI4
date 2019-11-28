@@ -3,23 +3,25 @@ import React from 'react';
 
 import { follow } from '../../services/api'
 
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+
 
 const FollowButton = (props) => {
 
-    const { data } = props;
+    const { data, emitUpdate } = props;
     console.log(data)
 
     const followRequest = async(e) => {
-        const idToFollow = e.target.getAttribute('idtofollow');
+        const idToFollow = e.currentTarget.getAttribute('idtofollow');
         const request = await follow(idToFollow);
     
-        console.log(request)
+        emitUpdate()
     
     }
 
     return (
         <button type="Button" idtofollow={data.id} onClick={followRequest}>
-            FOLLOW
+            <PersonAddIcon />
         </button>
     )
 }
